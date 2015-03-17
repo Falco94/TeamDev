@@ -1,25 +1,13 @@
-#include <iostream>
-#include <SFML\Graphics.hpp>
+#include "Game.h"
 
 int main()
 {
-
-	sf::Window window(sf::VideoMode(1204, 768), "Testbild");
-
-	// Solange das Fenster nicht geschlossen ist --> GAMELOOP
-	while (window.isOpen())
-	{
-		//Events abfangen
-		sf::Event event;
-		while (window.pollEvent(event))
+	Game ArcadeShooter;
+	
+		while (ArcadeShooter.isRunning())
 		{
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				window.close();
+			ArcadeShooter.Run();
 		}
-
-
-
-	}
 
 	return 0;
 }

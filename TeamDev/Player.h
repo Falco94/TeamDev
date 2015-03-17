@@ -1,5 +1,8 @@
-#include <SFML\Graphics.hpp>
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
+
+#include <SFML\Graphics.hpp>
 
 class Player
 {
@@ -9,6 +12,7 @@ class Player
 
 		sf::Vector2f GetPosition();
 		void SetPosition();
+		void Initialisiere();
 
 		int GetLeben();
 		void SetLeben();
@@ -17,7 +21,10 @@ class Player
 
 	private:
 		sf::Vector2f _position;
+		sf::Texture _texture;
 		int _leben;
 		bool _alive;
 
 };
+
+#endif // !PLAYER_HPP
