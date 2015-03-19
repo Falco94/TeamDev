@@ -3,6 +3,7 @@
 
 #include <iostream>;
 #include "SFML\Graphics.hpp";
+#include <list>
 
 class Game
 {
@@ -11,12 +12,11 @@ public:
 
 	bool isRunning();
 	void Run();
-
 	sf::RenderWindow window;
-
+	bool running;
 
 private:
-	bool _running;
+	
 };
 
 #endif
