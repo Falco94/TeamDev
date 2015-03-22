@@ -32,13 +32,12 @@ public:
 
 	sf::Sprite Sprite;
 	sf::Image Image;
+	sf::Texture Textur;
 
 private:
 	sf::Vector2f _position;
 	bool _alive;
 	float _speed;
-	sf::Texture _textur;
-	
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 Shot::Shot(sf::Vector2f Position)
 {
-	if (!_textur.loadFromFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Textures\\Player\\shot.png"))
+	if (!Textur.loadFromFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Textures\\Player\\shot.png"))
 	{
 		std::cout << "Fehler beim Laden der Textur";
 	}
@@ -17,7 +17,7 @@ Shot::Shot(sf::Vector2f Position)
 	Initialisiere();
 
 	//_textur.setSmooth(true);
-	Sprite.setTexture(_textur);
+	Sprite.setTexture(Textur);
 	Sprite.scale(2, 2);
 	_position = Position;
 	Sprite.setPosition(_position);

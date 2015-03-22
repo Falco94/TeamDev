@@ -18,7 +18,7 @@ Asteroid::Asteroid(sf::Vector2f Position)
 
 	Textur.setSmooth(true);
 	Sprite.setTexture(Textur);
-	Sprite.scale(2, 2);
+	Sprite.scale(1,1);
 	Sprite.setTextureRect(sf::IntRect(50, 0, 21, 16));
 	_position = Position;
 	Sprite.setPosition(_position);
