@@ -1,6 +1,7 @@
 #ifndef SHOT_HPP
 #define SHOT_HPP
 
+#include "Game.h"
 #include "SFML\Graphics.hpp"
 #include <iostream>
 
@@ -16,7 +17,7 @@ public:
 	float X;
 	float Y;
 	void Initialisiere();
-	void Update(sf::Time Time, sf::RenderWindow &window);
+	void Update(sf::Time Time);
 
 	float GetSpeed();
 	void SetSpeed(float Speed);
@@ -24,8 +25,10 @@ public:
 	int GetLeben();
 	void SetLeben(int Leben);
 
-	bool Alive();
+	bool isAlive();
 	void Kill();
+
+	void Draw(Game &Game);
 
 	sf::Sprite Sprite;
 	sf::Image Image;

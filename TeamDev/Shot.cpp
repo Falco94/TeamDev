@@ -8,22 +8,21 @@ Shot::Shot(sf::Vector2f Position)
 	}
 
 
-	/* Erstellt eine neue Datei mit Transparenz
-	Image.loadFromFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Textures\\Player\\player.png");
-	Image.createMaskFromColor(sf::Color(20, 70, 96));
-	Image.saveToFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Textures\\Player\\player.png");
-	*/
+	//// Erstellt eine neue Datei mit Transparenz
+	//Image.loadFromFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Textures\\Player\\shot.png");
+	//Image.createMaskFromColor(sf::Color(20, 70, 96));
+	//Image.saveToFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Textures\\Player\\shot.png");
+	
 
 	Initialisiere();
 
-	_textur.setSmooth(true);
+	//_textur.setSmooth(true);
 	Sprite.setTexture(_textur);
 	Sprite.scale(2, 2);
 	_position = Position;
 	Sprite.setPosition(_position);
 	X = _position.x;
 	Y = _position.y;
-
 }
 
 Shot::~Shot()
@@ -32,7 +31,6 @@ Shot::~Shot()
 
 void Shot::Initialisiere()
 {
-	_position = sf::Vector2f(0, 0);
 	_alive = true;
 	_speed = 400.f;
 }
@@ -63,12 +61,12 @@ float Shot::GetSpeed()
 	return _speed;
 }
 
-void Shot::Update(sf::Time Time, sf::RenderWindow &window)
+void Shot::Update(sf::Time Time)
 {
-		this->Move(sf::Vector2f((this->GetSpeed()*Time.asSeconds()), 0));
+	this->Move(sf::Vector2f((this->GetSpeed()*Time.asSeconds()), 0));
 }
 
-bool Shot::Alive()
+bool Shot::isAlive()
 {
 	return _alive;
 }
@@ -76,4 +74,9 @@ bool Shot::Alive()
 void Shot::Kill()
 {
 	_alive = false;
+}
+
+void Shot::Draw(Game &Game)
+{
+	Game.window.draw(this->Sprite);
 }

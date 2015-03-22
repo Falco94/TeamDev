@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Player.h"
+#include "Asteroid.h"
+#include "Asteroids.h"
 #include "Shot.h"
 #include "SFML\Audio.hpp"
 
@@ -15,12 +17,18 @@ int main()
 {
 	Game game;
 	Player player(sf::Vector2f(100, 100));
-	std::list<Shot> Shots;
+	Asteroids asteroids;
+
+	bool lockSpace;
 
 	sf::Clock clock;
+	sf::Clock universalClock;
 	sf::Time time;
 	sf::Time shotLock;
 	sf::Time timeAll;
+	sf::Time AsteroidSpawnTimer;
+
+	universalClock.restart();
 
 
 	//Music Test
@@ -33,13 +41,20 @@ int main()
 
 	while (game.isRunning())
 	{
-
+		shotLock += clock.getElapsedTime();
+		AsteroidSpawnTimer += clock.getElapsedTime();
 		time = clock.restart();
-		timeAll += clock.restart();
-		shotLock += clock.restart();
-
+		timeAll = universalClock.getElapsedTime();
+		
+		
 		//Events abfangen
 		sf::Event event;
+
+		if (shotLock >= sf::milliseconds(500))
+		{
+			lockSpace = false;
+			shotLock = shotLock.Zero;
+		}
 
 		game.window.clear();
 
@@ -53,39 +68,28 @@ int main()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
-				//if (shotLock.asMilliseconds() >= test)
-				//{
-					Shots.push_back(Shot(sf::Vector2f(player.X + 5, player.Y)));
-					shotLock.Zero;
-				//}
+				if (!lockSpace)
+				{
+					Shot* s = new Shot(sf::Vector2f(player.X + 30, player.Y+10));
+					player.Shots.push_back(s);
+					lockSpace = true;
+				}
 			}
 		}
 
-
-		std::list<Shot>::iterator it = Shots.begin();
-
-		while (it != Shots.end())
+		if (AsteroidSpawnTimer > sf::seconds(1.5))
 		{
-			if (it->Alive())
-			{
-				it->Update(time, game.window);
-
-				if (it->X > game.window.getSize().x)
-					it->Kill();
-
-				game.window.draw(it->Sprite);
-				it++;
-			}
-			else
-			{
-				Shots.erase(it);
-			}
+			AsteroidSpawnTimer = AsteroidSpawnTimer.Zero;
+			asteroids.AddAsteroid(sf::Vector2f(game.window.getSize().x, rand() % game.window.getSize().y));
 		}
 
-		player.Update(time, game.window);
+		asteroids.Update(time, game);
+
+		player.UpdateShots(time, game);
+		player.Update(time, game);
+		player.Draw(game);
 
 		game.Run();
-		game.window.draw(player.Sprite);
 		game.window.display();
 	}
 
