@@ -80,6 +80,8 @@ void Player::Update(sf::Time Time, Game &game)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
+		_tempTimeNotUp = _tempTimeNotUp.Zero;
+		_tempTimeNotDown = _tempTimeNotDown.Zero;
 		_tempTimeUp += Time;
 
 		if (this->Sprite.getTextureRect().left > 0)
@@ -97,6 +99,8 @@ void Player::Update(sf::Time Time, Game &game)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
+		_tempTimeNotUp = _tempTimeNotUp.Zero;
+		_tempTimeNotDown = _tempTimeNotDown.Zero;
 		_tempTimeDown += Time;
 
 		if (this->Sprite.getTextureRect().left < 100)
@@ -113,6 +117,8 @@ void Player::Update(sf::Time Time, Game &game)
 
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
+		_tempTimeUp = _tempTimeUp.Zero;
+		_tempTimeDown = _tempTimeDown.Zero;
 		_tempTimeNotDown += Time;
 
 		if (this->Sprite.getTextureRect().left > 50)
@@ -127,6 +133,8 @@ void Player::Update(sf::Time Time, Game &game)
 
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
+		_tempTimeUp = _tempTimeUp.Zero;
+		_tempTimeDown = _tempTimeDown.Zero;
 		_tempTimeNotUp += Time;
 
 		if (this->Sprite.getTextureRect().left < 50)
