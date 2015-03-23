@@ -110,5 +110,15 @@ void Asteroid::Draw(Game &Game)
 
 void Asteroid::Kill()
 {
-	_alive = true;
+	_alive = false;
+}
+
+int Asteroid::GetLeben()
+{
+	return _leben;
+}
+
+void Asteroid::SetLeben(int Leben)
+{
+	_leben = Leben;
 }

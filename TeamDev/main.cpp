@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Asteroid.h"
 #include "Asteroids.h"
+#include "Kollision.h"
 #include "Shot.h"
 #include "SFML\Audio.hpp"
 
@@ -11,6 +12,8 @@
 #pragma comment(lib, "sndfile.lib") 
 #pragma comment(lib, "sfml-system.lib")
 
+const float ASTEROID_SPAWN_TIMER = 0.75;
+
 //TODO: Funktionen aus main Prozedur auslagern...
 // window.draw und window.display in die Game Klasse einbauen.
 int main()
@@ -18,6 +21,7 @@ int main()
 	Game game;
 	Player player(sf::Vector2f(100, 100));
 	Asteroids asteroids;
+	Kollision kollision;
 
 	bool lockSpace;
 
@@ -30,14 +34,14 @@ int main()
 
 	universalClock.restart();
 
-
-	//Music Test
-	sf::Music music;
-	if (!music.openFromFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Sounds\\vic-viper.wav"))
-		return -1; // error
-	music.setLoop(true);
-	music.setVolume(10);
-	music.play();
+	
+	////Music Test
+	//sf::Music music;
+	//if (!music.openFromFile("C:\\Users\\Falco\\Documents\\Visual Studio 2013\\Projects\\TeamDev\\Sounds\\vic-viper.wav"))
+	//	return -1; // error
+	//music.setLoop(true);
+	//music.setVolume(10);
+	//music.play();
 
 	while (game.isRunning())
 	{
@@ -50,7 +54,7 @@ int main()
 		//Events abfangen
 		sf::Event event;
 
-		if (shotLock >= sf::milliseconds(500))
+		if (shotLock >= sf::milliseconds(500/player.upgrade.ShootingMultiply))
 		{
 			lockSpace = false;
 			shotLock = shotLock.Zero;
@@ -70,18 +74,25 @@ int main()
 			{
 				if (!lockSpace)
 				{
-					Shot* s = new Shot(sf::Vector2f(player.X + 30, player.Y+10));
-					player.Shots.push_back(s);
-					lockSpace = true;
+					for (int i = 0; i < player.upgrade.LaserCount; i++)
+					{
+						Shot* s = new Shot(sf::Vector2f(player.X + 30, player.Y + 10), i);
+						player.Shots.push_back(s);
+						lockSpace = true;
+					}
+
 				}
 			}
 		}
 
-		if (AsteroidSpawnTimer > sf::seconds(1.5))
+		if (AsteroidSpawnTimer > sf::seconds(ASTEROID_SPAWN_TIMER))
 		{
 			AsteroidSpawnTimer = AsteroidSpawnTimer.Zero;
 			asteroids.AddAsteroid(sf::Vector2f(game.window.getSize().x, rand() % game.window.getSize().y));
 		}
+
+
+		kollision.BerechneKollisionen(player.Shots, asteroids.asteroids);
 
 		asteroids.Update(time, game);
 

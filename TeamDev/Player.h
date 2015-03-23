@@ -2,6 +2,8 @@
 #define PLAYER_HPP
 
 #include "Shot.h"
+#include "Kollision.h"
+#include "Upgrade.h"
 #include <SFML\Graphics.hpp>
 #include <list>
 
@@ -31,6 +33,8 @@ class Player
 		bool Alive();
 
 		void Draw(Game &Game);
+
+		Upgrade upgrade;
 
 		sf::Sprite Sprite;
 		sf::Image Image;

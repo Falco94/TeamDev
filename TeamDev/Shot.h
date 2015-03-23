@@ -8,7 +8,7 @@
 class Shot
 {
 public:
-	Shot(sf::Vector2f Position);
+	Shot(sf::Vector2f Position, int IndexDirection);
 	~Shot();
 
 	sf::Vector2f GetPosition();
@@ -36,6 +36,8 @@ public:
 
 private:
 	sf::Vector2f _position;
+	sf::Vector2f _directions[10];
+	sf::Vector2f _direction;
 	bool _alive;
 	float _speed;
 };

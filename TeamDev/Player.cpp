@@ -161,6 +161,8 @@ void Player::Update(sf::Time Time, Game &game)
 		this->SetPosition(sf::Vector2f(this->X, game.window.getSize().y - 30));
 }
 
+
+
 void Player::UpdateShots(sf::Time Time, Game &game)
 {
 	std::list<Shot*>::iterator it = this->Shots.begin();
